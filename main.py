@@ -41,6 +41,39 @@ def list_tasks():
             print(f"Priority: {priority}")
             print(f"Task Status: {task.status}")
 
+# here you can edit... tasks! how surprising. first,
+# it asks the user if they want to display/list all current tasks
+# and then ask them what task and what field to edit
+def edit_task():
+    show_tasks = input("Do you want to list all tasks? (y/N) ")
+    if show_tasks.lower() == "y":
+        list_tasks()
+
+    task_to_edit = int(input("\nEnter task number to edit: "))
+    task_to_edit -= 1
+
+    property_edit = input("What property would you like to edit (Title, desc., due, priority, status)? ")
+    property_edit = property_edit.lower()
+    match property_edit:
+        case "title":
+            tasks_arr[task_to_edit].title = input("Enter new task title: ")
+        case "desc" | "description":
+            tasks_arr[task_to_edit].desc = input("Enter new task description: ")
+        case "due":
+            tasks_arr[task_to_edit].due = input("Enter new task due (preferably in YYYY-MM-DD format): ")
+        case "priority":
+            tasks_arr[task_to_edit].priority = int(input("Enter new task priority (1-3, 1 being Low and 3 being High): "))
+        case "status":
+            status = input("Enter current task status (Complete or Incomplete): ")
+            if status.lower() == "complete":
+                tasks_arr[task_to_edit].status = "Complete"
+            elif status.lower() == "incomplete":
+                tasks_arr[task_to_edit].status = "Incomplete"
+            else:
+                print("Invalid status type, defaulting to Incomplete")
+                tasks_arr[task_to_edit].status = "Incomplete"
+
+# pretty basic function, just some array/list management.
 def delete_tasks():
     show_tasks = input("Do you want to list all tasks? (y/N) ")
     if show_tasks.lower() == "y":
@@ -51,6 +84,8 @@ def delete_tasks():
 
     tasks_arr.remove(task_to_delete)
 
+# thanks, chatgpt. i was scared at first thinking it could be like c,
+# where it's kind of hard to do.
 def load_tasks():
     filepath = input("\nEnter file name: ")
     line_amount = 0
@@ -71,6 +106,7 @@ def load_tasks():
         print("Couldn't open file. Exiting now...")
         quit()
 
+# i've never seen something that easy. thanks again, chatgpt. i will learn now.
 def save_tasks():
     filepath = input("\nEnter file name: ")
     try:
@@ -88,7 +124,7 @@ def save_tasks():
 def menu():
     # hmmmmmm 
     print("\nWelcome to my task management system. What would you like to do? ")
-    print("1. Add task\n2. List all tasks\n3. Delete tasks\n4. Save tasks to file\n5. Load tasks from file\n6: Exit")
+    print("1. Add task\n2. List all tasks\n3. Edit tasks\n4. Delete tasks\n5. Save tasks to file\n6. Load tasks from file\n7: Exit")
     choice = int(input())
 
     match choice:
@@ -96,17 +132,20 @@ def menu():
             add_task()
         case 2:
             list_tasks()
-        case 3:
-            delete_tasks()
+        case 3: 
+            edit_task()
         case 4:
-            save_tasks()
+            delete_tasks()
         case 5:
-            load_tasks()
+            save_tasks()
         case 6:
+            load_tasks()
+        case 7:
             quit()
         case _: 
             print("Invalid choice. Exiting now...")
             quit()
 
+# :nerd: 
 while True:
     menu()
