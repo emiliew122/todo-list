@@ -142,6 +142,8 @@ def menu():
             load_tasks()
         case 7:
             quit()
+        case 8: 
+            print("Bro missclicked 🤓")
         case _: 
             print("Invalid choice. Exiting now...")
             quit()
