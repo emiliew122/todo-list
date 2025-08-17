@@ -1,2 +1,4 @@
-# todo-list
-A very basic todo-list tool written in Python
+# Todo-List manager written in Python
+
+to run it, it's as easy as running
+`python3 main.py`
